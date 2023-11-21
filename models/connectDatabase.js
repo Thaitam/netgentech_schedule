@@ -1,20 +1,14 @@
-// db.js
-const mysql = require('mysql');
-require('dotenv').config();
+const sql = require('msnodesqlv8');
 
-const connection = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE
-});
+const connectionString = 'server=.;Database=QUANLYBDS_TEAM3;Trusted_Connection=Yes;Driver={ODBC Driver 17 for SQL Server}';
 
-connection.connect((err) => {
+const conn = sql.open(connectionString, (err) => {
     if (err) {
-        console.error('Error connecting to MySQL:', err);
+        console.log(err);
     } else {
-        console.log('Successfully connected to MySQL');
+        console.log('Database connection successful!');
+     
     }
 });
 
-module.exports = connection;
+module.exports = conn;

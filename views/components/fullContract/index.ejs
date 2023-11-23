@@ -1,29 +1,59 @@
-<section class="fullcontract">
-  <div class="title_fullcontract">
-    <div class="title">
-      <i class="ti-files icon_contract"></i>
-      <h1>Danh sách hợp đồng</h1>
-    </div>
-    <h1 class="text-9xl">Trả góp 1 lần</h1>
-    <div class="search_icon">
-      <i class="ti-search icon_search"></i>
-    </div>
-  </div>
-</section>
-<!-- tạo bảng với các cột: mã hợp đồng, họ và tên, số tiền đã cọc, giá trị hợp đồng, số tiền còn lại, Trạng thái, ngày lập hợp đồng -->
 <section class="w-full">
   <table class="w-full divide-y divide-gray-200">
     <thead class="bg-gray-50">
       <tr>
-        <th class="px-6 py-3 text-center text-base font-medium text-black-500 capitalize border">Mã hợp đồng</th>
+        <th class="px-6 py-3 text-center text-base font-medium text-black-500 capitalize border">Full_Contract_Code</th>
+        <th class="px-6 py-3 text-center text-base font-medium text-black-500 capitalize border">Customer_Name</th>
+        <th class="px-6 py-3 text-center text-base font-medium text-black-500 capitalize border">Year_Of_Birth</th>
+        <th class="px-6 py-3 text-center text-base font-medium text-black-500 capitalize border">SSN</th>
+        <th class="px-6 py-3 text-center text-base font-medium text-black-500 capitalize border">Customer_Address</th>
+        <th class="px-6 py-3 text-center text-base font-medium text-black-500 capitalize border">Mobile</th>
+        <th class="px-6 py-3 text-center text-base font-medium text-black-500 capitalize border">Property_ID</th>
+        <th class="px-6 py-3 text-center text-base font-medium text-black-500 capitalize border">Date_Of_Contract</th>
+        <th class="px-6 py-3 text-center text-base font-medium text-black-500 capitalize border">Price</th>
+        <th class="px-6 py-3 text-center text-base font-medium text-black-500 capitalize border">Deposit</th>
+        <th class="px-6 py-3 text-center text-base font-medium text-black-500 capitalize border">Remain</th>
+        <th class="px-6 py-3 text-center text-base font-medium text-black-500 capitalize border">Status</th>
+
+
+
       </tr>
     </thead>
     <tbody class="bg-white divide-y divide-gray-200">
-      <% contracts.forEach(contract => { %>
-        <tr>
-          <th class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium text-black-900"><%= contract.Full_Contract_Code %></th>
-        </tr>
-      <% }) %>
     </tbody>
   </table>
+  <script>
+    fetch('/api/fullcontract/getall')
+      .then(response => response.json())
+      .then(data => {
+        const tableBody = document.querySelector('tbody');
+        data.forEach(contract => {
+          const row = document.createElement('tr');
+          const columns = [
+            'Full_Contract_Code',
+            'Customer_Name',
+            'Year_Of_Birth',
+            'SSN',
+            'Customer_Address',
+            'Mobile',
+            'Property_ID',
+            'Date_Of_Contract',
+            'Price',
+            'Deposit',
+            'Remain',
+            'Status'
+          ];
+          columns.forEach(column => {
+            const cell = document.createElement('td');
+            const value = contract[column];
+            cell.textContent = value !== null ? value : 'null';
+            row.appendChild(cell);
+          });
+          tableBody.appendChild(row);
+        });
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  </script>
+  
+  
 </section>

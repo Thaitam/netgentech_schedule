@@ -5,13 +5,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="tailwind.css">
   <link rel="stylesheet" href="font/themify-icons-font/themify-icons/themify-icons.css">
   <title><%- title %></title>
 </head>
 <body>
   <%- include('../partials/_header.ejs') %>
-  <%- include('../partials/_sidebar.ejs') %>
-  <%- include('./index.ejs') %>
+  <section class="section">
+    <%- include('../partials/_sidebar.ejs') %>
+    <main class="mainsection"><%- body %></main>
+  </section>
   <%- include('../partials/_footer.ejs') %>
 </body>
 <script src="js/main.js"></script>

@@ -13,21 +13,24 @@ app.use(express.static('public'))
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-app.get('/', (req, res) => {
-  res.send('server is running');
-});
+
 
 app.use(expressLayouts)
 app.set('layout', './layout/managementLayout')
-app.set('view engine', 'ejs')
 
 //render
-app.get('/home', (req, res) => {
+app.get('/', (req, res) => {
   res.render('index' , { title : 'Homepage'});
 });
 
-app.get('/addContract', (req, res) => {
-  res.render('./components/addContract/index.ejs' , { title : 'addContract'});
+app.get('/full-contract', (req, res) => {
+  res.render('./components/fullContract/index.ejs' , { title : 'Full Contract'});
+});
+app.get('/installment-contract', (req, res) => {
+  res.render('./components/installmentContract/index.ejs' , { title : 'Installment Contract'});
+});
+app.get('/add-contract', (req, res) => {
+  res.render('./components/addContract/index.ejs' , { title : 'Add Contract'});
 });
 
 //routes

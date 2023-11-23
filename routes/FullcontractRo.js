@@ -11,7 +11,8 @@ router.get('/getall', (req, res) => {
     if (err) {
       // handle error
     } else {
-      res.render('../views/components/fullContract/index.ejs', { contracts: data, title: 'Full Contract' });
+      console.log(data);
+      res.render('../views/components/fullContract/index.ejs', { contracts: data });
     }
   });
 });

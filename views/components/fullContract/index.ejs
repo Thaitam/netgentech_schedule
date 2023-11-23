@@ -16,24 +16,12 @@
     <thead class="bg-gray-50">
       <tr>
         <th class="px-6 py-3 text-center text-base font-medium text-black-500 capitalize border">Mã hợp đồng</th>
-        <th class="px-6 py-3 text-center text-base font-medium text-black-500 capitalize border">Họ và tên</th>
-        <th class="px-6 py-3 text-center text-base font-medium text-black-500 capitalize border">Số tiền đã cọc</th>
-        <th class="px-6 py-3 text-center text-base font-medium text-black-500 capitalize border">Giá trị hợp đồng</th>
-        <th class="px-6 py-3 text-center text-base font-medium text-black-500 capitalize border">Số tiền còn lại</th>
-        <th class="px-6 py-3 text-center text-base font-medium text-black-500 capitalize border">Trạng thái</th>
-        <th class="px-6 py-3 text-center text-base font-medium text-black-500 capitalize border">Ngày lập hợp đồng</th>
       </tr>
     </thead>
     <tbody class="bg-white divide-y divide-gray-200">
       <% contracts.forEach(contract => { %>
         <tr>
           <th class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium text-black-900"><%= contract.Full_Contract_Code %></th>
-          <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-black-500"><%= contract.hoVaTen %></td>
-          <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-black-500"><%= contract.soTienDaCoc %></td>
-          <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-black-500"><%= contract.giaTriHopDong %></td>
-          <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-black-500"><%= contract.soTienConLai %></td>
-          <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-black-500"><%= contract.trangThai %></td>
-          <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-black-500"><%= contract.ngayLapHopDong %></td>
         </tr>
       <% }) %>
     </tbody>

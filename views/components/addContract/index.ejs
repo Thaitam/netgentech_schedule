@@ -26,15 +26,18 @@
   <div class="flex justify-between border-b-2 pb-2" style="padding-right: 10rem;">
     <div>
       <label for="customerName">Tên khách hàng: </label>
-      <input type="text" id="customerName">
+      <input placeholder="Lê Trần Thái Tem" type="text" id="customerName" required>
     </div>
     <div>
       <label for="birthYear">Năm sinh: </label>
-      <input placeholder="2003" type="text" id="birthYear" pattern="[0-9]{4}" title="Four digit year" required>
+      <input placeholder="2003" type="number" id="birthYear" pattern="[0-9]{4}" title="Four digit year" required>
     </div>
-    <div>
-      <label for="ssn">Số CCCD/CMND: </label>
-      <input type="text" id="ssn" required>
+    <div class="flex flex-col">
+      <div>
+        <label for="ssn">Số CCCD/CMND: </label>
+        <input placeholder="Chấp nhận 9 số và 12 số" type="number" id="ssn" required>
+      </div>
+      <span id="ssnError" style="color: red;"></span>
     </div>
   </div>
   <div class="flex justify-start items-start border-b-2 pb-2" style="padding-right: 10rem;">
@@ -43,8 +46,11 @@
   </div>
   <div class="flex justify-between border-b-2 pb-2" style="padding-right: 10rem;">
     <div>
-      <label>Số điện thoại: </label>
-      <input type="number" id="phoneNumber">
+      <div>
+        <label>Số điện thoại: </label>
+        <input type="number" id="phoneNumber" required>
+      </div>
+      <span id="mobileError" style="color: red;"></span>
     </div>
     <div>
       <label>Ngày lập hợp đồng: </label>
@@ -69,6 +75,7 @@
     <div>
       <label>Trạng thái: </label>
       <select class="border" name="status" id="status">
+        <option value="" disabled selected>Chọn trạng thái</option>
         <option value="1">Đã thanh toán</option>
         <option value="0">Chưa thanh toán</option>
       </select>
@@ -108,7 +115,6 @@
     axios.get(`/api/property/getbyid/${selectedPropertyId}`)
       .then(response => {
         const property = response.data;
-        console.log(property)
         const contractValueElement = document.querySelector('#contractValue');
         const depositElement = document.querySelector('#deposit');
         const remainingAmountElement = document.querySelector('#remainingAmount');
@@ -134,7 +140,32 @@
     const Remain = document.querySelector('#remainingAmount').value;
     const Status = document.querySelector('#status').value;
     var contractDate = document.getElementById("contractDate").value;
-    console.log(contractDate);
+    
+    if (!Customer_Name) {
+      alert('Vui lòng điền thông tin vào Tên khách hàng');
+      return;
+    }
+  
+    if (!SSN || (SSN.length !== 9 && SSN.length !== 12)) {
+      document.querySelector('#ssnError').textContent = 'Số CCCD/CMND không hợp lệ';
+      return;
+    } else {
+      document.querySelector('#ssnError').textContent = '';
+    }
+    const mobileErrorElement = document.querySelector('#mobileError');
+    const phonePattern = /(03|07|08|09|01[2|6|8|9])+([0-9]{8})\b/;
+    if (!Mobile || !phonePattern.test(Mobile)) {
+      mobileErrorElement.textContent = 'Vui lòng nhập số điện thoại hợp lệ';
+      return;
+    } else {
+      mobileErrorElement.textContent = '';
+    }
+  
+    if (!Status) {
+      alert('Vui lòng chọn trạng thái');
+      return;
+    }
+
     axios.post('/api/fullcontract/add', {
       Customer_Name,
       Year_Of_Birth,
@@ -153,8 +184,8 @@
       window.location.href = '/full-contract'; // replace with your actual list page URL
     })
     .catch(error => {
-      console.error('Error adding contract:', error);
-      alert('Error adding contract');
+      alert(`Không thể tạo hợp đồng do bất động sản đã có hợp đồng`);
+      return
     });
   });
 

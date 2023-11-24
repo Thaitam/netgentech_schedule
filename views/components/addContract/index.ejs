@@ -48,7 +48,7 @@
     </div>
     <div>
       <label>Ngày lập hợp đồng: </label>
-      <input type="datetime" id="contractDate" readonly>
+      <input type="date" id="contractDate">
     </div>
   </div>
   <div class="flex justify-between border-b-2 pb-2" style="padding-right: 10rem;">
@@ -86,9 +86,6 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
   window.onload = function() {
-    const today = new Date();
-    const formattedDate = ('0' + today.getDate()).slice(-2) + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + today.getFullYear();
-    document.querySelector('#contractDate').value = formattedDate;
 
     axios.get('/api/property/getall')
       .then(response => {

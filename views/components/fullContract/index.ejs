@@ -21,48 +21,72 @@
         <th class="px-6 py-3 text-center text-base font-medium text-black-500 capitalize border">Số tiền còn lại</th>
         <th class="px-6 py-3 text-center text-base font-medium text-black-500 capitalize border">Trạng thái</th>
         <th class="px-6 py-3 text-center text-base font-medium text-black-500 capitalize border">Ngày lập hợp đồng</th>
-
       </tr>
     </thead>
     <tbody class="bg-white divide-y divide-gray-200">
     </tbody>
   </table>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <div class="pagination">
+    <button onclick="goToPage(1)">1</button>
+    <button onclick="goToPage(2)">2</button>
+    <button onclick="goToPage(3)">3</button>
+    <!-- Add more buttons as needed -->
+  </div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
+    let currentPage = 1;
+    const itemsPerPage = 10;
+    let data = [];
+    
     axios.get('/api/fullcontract/getall')
       .then(response => {
-        const data = response.data;
-        const tableBody = document.querySelector('tbody');
-        const rows = data.map(contract => {
-          const row = document.createElement('tr');
-          const columns = [
-            'Full_Contract_Code',
-            'Customer_Name',
-            'Deposit',
-            'Price',
-            'Remain',
-            'Status',
-            'Date_Of_Contract'
-          ];
-          columns.forEach(column => {
-            const cell = document.createElement('td');
-            cell.className = "px-6 py-3 text-center text-base font-medium text-black-500 capitalize border";
-            let value = contract[column];
-            if (column === 'Status') {
-              value = value ? 'Đã thanh toán' : 'Chưa thanh toán';
-            }
-            cell.textContent = value !== null ? value : 'null';
-            row.appendChild(cell);
-          });
-          row.addEventListener('click', () => {
-            window.location.href = `/detailContract/${contract.Full_Contract_Code}`;
-          });
-          return row;
-        });
-        rows.forEach(row => tableBody.appendChild(row));
+        data = response.data;
+        updateTable();
       })
       .catch(error => console.error('Error fetching data:', error));
+    
+    function updateTable() {
+      const tableBody = document.querySelector('tbody');
+      tableBody.innerHTML = ''; // Clear the table
+      const start = (currentPage - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+      const pageData = data.slice(start, end);
+      const rows = pageData.map(contract => {
+        const row = document.createElement('tr');
+        const columns = [
+          'Full_Contract_Code',
+          'Customer_Name',
+          'Deposit',
+          'Price',
+          'Remain',
+          'Status',
+          'Date_Of_Contract'
+        ];
+        columns.forEach(column => {
+          const cell = document.createElement('td');
+          cell.className = "px-6 py-3 text-center text-base font-medium text-black-500 capitalize border";
+          let value = contract[column];
+          if (column === 'Status') {
+            value = value ? 'Đã thanh toán' : 'Chưa thanh toán';
+          }
+          cell.textContent = value !== null ? value : 'null';
+          row.appendChild(cell);
+
+          // Only add click event to the cell with the contract code
+          if (column === 'Full_Contract_Code') {
+            cell.style.cursor = 'pointer';
+            cell.addEventListener('click', () => {
+              window.location.href = `/detailContract/${contract.Full_Contract_Code}`;
+            });
+          }
+        });
+        return row;
+      });
+      rows.forEach(row => tableBody.appendChild(row));
+    }
+      function goToPage(page) {
+        currentPage = page;
+        updateTable();
+      }
   </script>
-  
-  
-</section>

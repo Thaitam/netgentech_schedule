@@ -32,6 +32,11 @@ app.get('/installment-contract', (req, res) => {
 app.get('/add-contract', (req, res) => {
   res.render('./components/addContract/index.ejs' , { title : 'Add Contract'});
 });
+app.get('/detailContract/:id', (req, res) => {
+  const { id } = req.params;
+  res.render('./components/fullContract/detailContract.ejs', { title: 'Contract Detail', contractId: id });
+});
+
 
 //routes
 app.use('/api/fullcontract', FullcontractRo);

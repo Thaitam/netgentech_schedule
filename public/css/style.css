@@ -33,8 +33,8 @@ header.Header {
 
 .siderbar {
   background-color: var(--side-barcolor);
-  width: 15.6666%;
-  height: 78vh;
+  width: 17.6666%;
+  min-height: 78vh;
 }
 
 .siderbar .infoAccount {
@@ -185,3 +185,12 @@ main.mainsection {
   margin-right: 10px;
 }
 
+input[type="text"], input[type="number"], input[type="datetime"] {
+  width: 200px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  resize: vertical;
+}

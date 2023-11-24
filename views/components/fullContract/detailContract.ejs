@@ -1,0 +1,95 @@
+<section class="fullcontract">
+  <div class="title_fullcontract">
+    <div class="title">
+      <i class="ti-files icon_contract"></i>
+      <h1>Danh sách hợp đồng > Chi tiết hợp đồng </h1>
+    </div>
+    <h1 class="text-9xl" style="padding-right: 18rem;">Trả góp 1 lần</h1>
+    <div class="search_icon">
+      <i class="ti-search icon_search"></i>
+    </div>
+  </div>
+</section>
+<section class="px-5 py-3 m-5 border rounded-md space-y-3">
+  <div class="flex justify-between items-center border-b pb-3">
+    <h2 class="text-base">Thông tin hợp đồng</h2>
+    <div class="flex justify-between items-center" style="width: 20rem;">
+      <button class="w-1/4 ml-1 flex justify-evenly items-center border py-1 px-2"><i class="ti-printer text-xl mt-1"></i><p class="mr-1">In</p></button>
+      <button class="w-1/4 ml-1 flex justify-evenly items-center border py-1 px-2"><i class="ti-pencil text-xl mt-1"></i><p>Sửa</p></button>
+      <button class="w-1/4 mr-1 flex justify-evenly items-center border py-1 px-2"><i class="ti-trash text-xl mt-1"></i><p>Xóa</p></button>
+    </div>
+  </div>
+  <div class="flex pr-48 justify-between border-b-2 pb-2">
+    <div>
+      <label>Mã hợp đồng: </label><span id="contractCode"></span>
+    </div>
+    <div>
+      <label>Mã bất động sản: </label><span id="propertyId"></span>
+    </div>
+  </div>
+  <div class="flex pr-48 justify-between border-b-2 pb-2">
+    <div>
+      <label>Khách hàng: </label><span id="customerName"></span>
+    </div>
+    <div>
+      <label>Sinh năm: </label><span id="birthYear"></span>
+    </div>
+    <div>
+      <label>CCCD/CMND: </label><span id="ssn"></span>
+    </div>
+  </div>
+  <div class="flex pr-48 justify-start border-b-2 pb-2">
+    <div>
+      <label>Địa chỉ: </label><span id="address"></span>
+    </div>
+  </div>
+  <div class="flex pr-48 justify-between border-b-2 pb-2">
+    <div>
+      <label>Số điện thoại: </label><span id="phoneNumber"></span>
+    </div>
+    <div>
+      <label>Ngày lập hợp đồng: </label><span id="contractDate"></span>
+    </div>
+  </div>
+  <div class="flex pr-48 justify-between border-b-2 pb-2">
+    <div>
+      <label>Giá trị hợp đồng: </label><span id="contractValue"></span>
+    </div>
+    <div>
+      <label>Số tiền đã cọc: </label><span id="deposit"></span>
+    </div>
+  </div>
+  <div class="flex pr-48 justify-between border-b-2 pb-2">
+    <div>
+      <label>Trạng thái: </label><span id="status"></span>
+    </div>
+    <div>
+      <label>Số tiền còn lại: </label><span id="remaining"></span>
+    </div>
+  </div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  const pathParts = window.location.pathname.split('/');
+  const contractCode = pathParts[pathParts.length - 1];
+  console.log(contractCode)
+
+  axios.get(`/api/fullcontract/getdetail/${contractCode}`)
+    .then(response => {
+      console.log(response)
+      const contract = response.data;
+      document.querySelector('#contractCode').textContent = contract.Full_Contract_Code;
+      document.querySelector('#propertyId').textContent = contract.Property_ID;
+      document.querySelector('#customerName').textContent = contract.Customer_Name;
+      document.querySelector('#birthYear').textContent = contract.Year_Of_Birth;
+      document.querySelector('#ssn').textContent = contract.SSN;
+      document.querySelector('#address').textContent = contract.Customer_Address;
+      document.querySelector('#phoneNumber').textContent = contract.Mobile;
+      document.querySelector('#contractDate').textContent = contract.Date_Of_Contract;
+      document.querySelector('#contractValue').textContent = contract.Price;
+      document.querySelector('#deposit').textContent = contract.Deposit;
+      document.querySelector('#status').textContent = contract.Status ? 'Đã thanh toán' : 'Chưa thanh toán';
+      document.querySelector('#remaining').textContent = contract.Remain;
+    })
+    .catch(error => console.error('Error fetching data:', error));
+</script>

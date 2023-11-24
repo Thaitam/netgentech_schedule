@@ -128,12 +128,13 @@
     const Customer_Address = document.querySelector('#address').value;
     const Mobile = document.querySelector('#phoneNumber').value;
     const Property_ID = document.querySelector('#propertyId').value;
-    //const Date_Of_Contract = document.querySelector('#contractDate').value
+    const Date_Of_Contract = document.querySelector('#contractDate').value
     const Price = document.querySelector('#contractValue').value;
     const Deposit = document.querySelector('#deposit').value;
     const Remain = document.querySelector('#remainingAmount').value;
     const Status = document.querySelector('#status').value;
-
+    var contractDate = document.getElementById("contractDate").value;
+    console.log(contractDate);
     axios.post('/api/fullcontract/add', {
       Customer_Name,
       Year_Of_Birth,
@@ -141,7 +142,7 @@
       Customer_Address,
       Mobile,
       Property_ID,
-      //Date_Of_Contract,
+      Date_Of_Contract,
       Price,
       Deposit,
       Remain,

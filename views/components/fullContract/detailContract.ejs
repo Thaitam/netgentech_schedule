@@ -85,7 +85,8 @@
       document.querySelector('#ssn').textContent = contract.SSN;
       document.querySelector('#address').textContent = contract.Customer_Address;
       document.querySelector('#phoneNumber').textContent = contract.Mobile;
-      document.querySelector('#contractDate').textContent = contract.Date_Of_Contract;
+      const contractDate = new Date(contract.Date_Of_Contract);
+      document.querySelector('#contractDate').textContent = contractDate.toLocaleDateString('vi-VN');
       document.querySelector('#contractValue').textContent = contract.Price;
       document.querySelector('#deposit').textContent = contract.Deposit;
       document.querySelector('#status').textContent = contract.Status ? 'Đã thanh toán' : 'Chưa thanh toán';

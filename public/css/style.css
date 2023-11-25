@@ -151,6 +151,9 @@ section.section {
 main.mainsection {
   width: 100%;
   height: 100%;
+  padding-bottom: 30px;
+  position: relative;
+  overflow: hidden;
 }
 
 .title_fullcontract {
@@ -193,4 +196,10 @@ input[type="text"], input[type="number"], input[type="datetime"] {
   box-sizing: border-box;
   margin-top: 6px;
   resize: vertical;
+}
+
+.pagination {
+  position: absolute;
+  bottom: 0;
+  left: 633px;
 }

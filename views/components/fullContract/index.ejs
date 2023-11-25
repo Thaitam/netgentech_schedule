@@ -26,13 +26,14 @@
     <tbody class="bg-white divide-y divide-gray-200">
     </tbody>
   </table>
-  <div class="pagination">
+</section>
+<div class="pagination">
+  <div class="page_btn">
     <button onclick="goToPage(1)">1</button>
     <button onclick="goToPage(2)">2</button>
     <button onclick="goToPage(3)">3</button>
-    <!-- Add more buttons as needed -->
   </div>
-</section>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
     let currentPage = 1;
@@ -69,6 +70,10 @@
           let value = contract[column];
           if (column === 'Status') {
             value = value ? 'Đã thanh toán' : 'Chưa thanh toán';
+          }
+          if (column === 'Date_Of_Contract') {
+            const date = new Date(value);
+            value = date.toLocaleDateString('vi-VN');
           }
           cell.textContent = value !== null ? value : 'null';
           row.appendChild(cell);
